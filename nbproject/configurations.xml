@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="src" displayName="src" projectFiles="true" root="..">
+      <logicalFolder name="devices" displayName="devices" projectFiles="true">
+        <itemPath>../devices/block.c</itemPath>
+        <itemPath>../devices/block.h</itemPath>
+        <itemPath>../devices/ide.c</itemPath>
+        <itemPath>../devices/ide.h</itemPath>
+        <itemPath>../devices/input.c</itemPath>
+        <itemPath>../devices/input.h</itemPath>
+        <itemPath>../devices/intq.c</itemPath>
+        <itemPath>../devices/intq.h</itemPath>
+        <itemPath>../devices/kbd.c</itemPath>
+        <itemPath>../devices/kbd.h</itemPath>
+        <itemPath>../devices/partition.c</itemPath>
+        <itemPath>../devices/partition.h</itemPath>
+        <itemPath>../devices/pit.c</itemPath>
+        <itemPath>../devices/pit.h</itemPath>
+        <itemPath>../devices/rtc.c</itemPath>
+        <itemPath>../devices/rtc.h</itemPath>
+        <itemPath>../devices/serial.c</itemPath>
+        <itemPath>../devices/serial.h</itemPath>
+        <itemPath>../devices/shutdown.c</itemPath>
+        <itemPath>../devices/shutdown.h</itemPath>
+        <itemPath>../devices/speaker.c</itemPath>
+        <itemPath>../devices/speaker.h</itemPath>
+        <itemPath>../devices/timer.c</itemPath>
+        <itemPath>../devices/timer.h</itemPath>
+        <itemPath>../devices/vga.c</itemPath>
+        <itemPath>../devices/vga.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="lib" displayName="lib" projectFiles="true">
+        <logicalFolder name="kernel" displayName="kernel" projectFiles="true">
+          <itemPath>../lib/kernel/bitmap.c</itemPath>
+          <itemPath>../lib/kernel/bitmap.h</itemPath>
+          <itemPath>../lib/kernel/console.c</itemPath>
+          <itemPath>../lib/kernel/console.h</itemPath>
+          <itemPath>../lib/kernel/debug.c</itemPath>
+          <itemPath>../lib/kernel/hash.c</itemPath>
+          <itemPath>../lib/kernel/hash.h</itemPath>
+          <itemPath>../lib/kernel/list.c</itemPath>
+          <itemPath>../lib/kernel/list.h</itemPath>
+          <itemPath>../lib/kernel/stdio.h</itemPath>
+        </logicalFolder>
+        <itemPath>../lib/arithmetic.c</itemPath>
+        <itemPath>../lib/ctype.h</itemPath>
+        <itemPath>../lib/debug.c</itemPath>
+        <itemPath>../lib/debug.h</itemPath>
+        <itemPath>../lib/inttypes.h</itemPath>
+        <itemPath>../lib/limits.h</itemPath>
+        <itemPath>../lib/packed.h</itemPath>
+        <itemPath>../lib/random.c</itemPath>
+        <itemPath>../lib/random.h</itemPath>
+        <itemPath>../lib/round.h</itemPath>
+        <itemPath>../lib/stdarg.h</itemPath>
+        <itemPath>../lib/stdbool.h</itemPath>
+        <itemPath>../lib/stddef.h</itemPath>
+        <itemPath>../lib/stdint.h</itemPath>
+        <itemPath>../lib/stdio.c</itemPath>
+        <itemPath>../lib/stdio.h</itemPath>
+        <itemPath>../lib/stdlib.c</itemPath>
+        <itemPath>../lib/stdlib.h</itemPath>
+        <itemPath>../lib/string.c</itemPath>
+        <itemPath>../lib/string.h</itemPath>
+        <itemPath>../lib/ustar.c</itemPath>
+        <itemPath>../lib/ustar.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="tests" displayName="tests" projectFiles="true">
+        <logicalFolder name="threads" displayName="threads" projectFiles="true">
+          <itemPath>../tests/threads/alarm-priority.c</itemPath>
+          <itemPath>../tests/threads/priority-change.c</itemPath>
+          <itemPath>../tests/threads/priority-condvar.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-chain.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-condvar.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-lower.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-multiple.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-multiple2.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-nest.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-one.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-sema.c</itemPath>
+          <itemPath>../tests/threads/priority-donate-single.c</itemPath>
+          <itemPath>../tests/threads/priority-fifo.c</itemPath>
+          <itemPath>../tests/threads/priority-preempt.c</itemPath>
+          <itemPath>../tests/threads/priority-sema.c</itemPath>
+          <itemPath>../tests/threads/tests.c</itemPath>
+          <itemPath>../tests/threads/tests.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <df root="." name="0">
+      <in>condvar.c</in>
+      <in>init.c</in>
+      <in>interrupt.c</in>
+      <in>lock.c</in>
+      <in>malloc.c</in>
+      <in>palloc.c</in>
+      <in>semaphore.c</in>
+      <in>thread.c</in>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>nbproject/private/launcher.properties</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-g -msoft-float -O"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <cTool>
+            <incDir>
+              <pElem>..</pElem>
+              <pElem>../lib</pElem>
+              <pElem>../lib/kernel</pElem>
+              <pElem>build</pElem>
+            </incDir>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="../devices/block.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/ide.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/input.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/intq.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/kbd.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/partition.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/pit.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/rtc.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/serial.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/shutdown.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/speaker.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/timer.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../devices/vga.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/arithmetic.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/debug.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/kernel/bitmap.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/kernel/console.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/kernel/debug.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/kernel/hash.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/kernel/list.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/random.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/stdio.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/stdlib.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/string.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../lib/ustar.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/alarm-priority.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-change.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-condvar.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-chain.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-condvar.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-lower.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-multiple.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-multiple2.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-nest.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-one.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-sema.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-donate-single.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-fifo.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-preempt.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/priority-sema.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../tests/threads/tests.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="condvar.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="init.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="interrupt.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="lock.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="malloc.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="palloc.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="semaphore.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="thread.c" ex="false" tool="0" flavor2="0">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

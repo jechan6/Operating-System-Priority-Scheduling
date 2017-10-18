@@ -1,0 +1,15 @@
+FAIL
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (priority-donate-single) begin
+  (priority-donate-single) Thread B finished.
+  (priority-donate-single) Thread C finished.
+  (priority-donate-single) Thread A finished.
+  (priority-donate-single) end
+Differences in `diff -u' format:
+  (priority-donate-single) begin
+- (priority-donate-single) Thread B finished.
+  (priority-donate-single) Thread C finished.
+  (priority-donate-single) Thread A finished.
+  (priority-donate-single) end

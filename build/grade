@@ -1,0 +1,58 @@
+TOTAL TESTING SCORE: 30.0%
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+SUMMARY BY TEST SET
+
+Test Set                                      Pts Max  % Ttl  % Max
+--------------------------------------------- --- --- ------ ------
+tests/threads/Rubric.basic                     30/ 30  30.0%/ 30.0%
+tests/threads/Rubric.advanced                   0/ 20   0.0%/ 20.0%
+tests/threads/Rubric.stretch                    0/ 20   0.0%/ 20.0%
+tests/threads/Rubric.extreme                    0/ 10   0.0%/ 10.0%
+--------------------------------------------- --- --- ------ ------
+Total                                                  30.0%/ 80.0%
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+SUMMARY OF INDIVIDUAL TESTS
+
+Basic: Priority based ready queue (tests/threads/Rubric.basic):
+	    15/15 tests/threads/alarm-priority
+	     5/ 5 tests/threads/priority-change
+	     5/ 5 tests/threads/priority-preempt
+	     5/ 5 tests/threads/priority-fifo
+
+	- Section summary.
+	      4/  4 tests passed
+	     30/ 30 points subtotal
+
+Advanced: Priority waiting for locks, semaphores, and condition variables (tests/threads/Rubric.advanced):
+	  ** 0/10 tests/threads/priority-sema
+	  ** 0/10 tests/threads/priority-condvar
+
+	- Section summary.
+	      0/  2 tests passed
+	      0/ 20 points subtotal
+
+Stretch: Single level priority donation, including multiple donations (tests/threads/Rubric.stretch):
+	  ** 0/ 3 tests/threads/priority-donate-one
+	  ** 0/ 3 tests/threads/priority-donate-lower
+	  ** 0/ 3 tests/threads/priority-donate-single
+	  ** 0/ 3 tests/threads/priority-donate-multiple
+	  ** 0/ 2 tests/threads/priority-donate-multiple2
+	  ** 0/ 3 tests/threads/priority-donate-sema
+	  ** 0/ 3 tests/threads/priority-donate-condvar
+
+	- Section summary.
+	      0/  7 tests passed
+	      0/ 20 points subtotal
+
+Extreme: Nested and chained priority donation (tests/threads/Rubric.extreme):
+	  ** 0/ 5 tests/threads/priority-donate-nest
+	  ** 0/ 5 tests/threads/priority-donate-chain
+
+	- Section summary.
+	      0/  2 tests passed
+	      0/ 10 points subtotal
+
