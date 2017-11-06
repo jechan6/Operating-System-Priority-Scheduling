@@ -92,7 +92,7 @@ struct thread {
     struct list_elem allelem; /* List element for all threads list. */
     struct list_elem donationelem;
     struct lock *lock;
-   
+    bool change;
     /* Shared between thread.c and sempahore.c. */
     struct list_elem elem; /* List element. */
 

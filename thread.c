@@ -419,9 +419,20 @@ thread_set_priority(int new_priority)
    
     //printf("old_top_priority: %d\n", f->priority);
     //int high_priority = t->priority;
+    int old_priority = thread_current()->priority;
+    thread_current()->real_priority = new_priority;
     thread_current()->priority = new_priority;
-    
-    
+    //release_priority();
+    if(old_priority > thread_current()->priority) {
+      
+        if(!list_empty(&thread_current()->d_list)) {
+            struct thread *t = list_entry(list_front(&thread_current()->d_list),
+                struct thread, donationelem);
+            if(t->priority > thread_current()->priority)
+                thread_current()->priority = t->priority;
+                
+        }
+    }
     int current_priority = thread_current()->priority;
     //printf("new_priority: %d\n", thread_current()->priority);
     //printf("top_priority: %d\n", t->priority);
@@ -487,6 +498,8 @@ void donate_priority(void) {
 }
 void release_priority() {
       thread_current()->priority = thread_current()->real_priority;
+      
+      
     //printf("lock holder p: %d\n", lock->holder->real_priority);
 //    if(lock->holder->real_priority != 0)
 //        lock->holder->priority = lock->holder->real_priority;

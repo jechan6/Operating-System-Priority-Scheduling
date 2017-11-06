@@ -105,6 +105,7 @@ condvar_wait(struct condvar *cond, struct lock *lock)
     semaphore_init(&waiter, 0);
     waiter.priority = thread_current()->priority;
     list_insert_ordered(&cond->waiters, &waiter.elem, compare_priority3, NULL);
+    
     //list_push_back(&cond->waiters, &waiter.elem);
     
     

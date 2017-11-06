@@ -1,4 +1,4 @@
-TOTAL TESTING SCORE: 56.0%
+TOTAL TESTING SCORE: 59.0%
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -8,10 +8,10 @@ Test Set                                      Pts Max  % Ttl  % Max
 --------------------------------------------- --- --- ------ ------
 tests/threads/Rubric.basic                     30/ 30  30.0%/ 30.0%
 tests/threads/Rubric.advanced                  20/ 20  20.0%/ 20.0%
-tests/threads/Rubric.stretch                    6/ 20   6.0%/ 20.0%
+tests/threads/Rubric.stretch                    9/ 20   9.0%/ 20.0%
 tests/threads/Rubric.extreme                    0/ 10   0.0%/ 10.0%
 --------------------------------------------- --- --- ------ ------
-Total                                                  56.0%/ 80.0%
+Total                                                  59.0%/ 80.0%
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -37,7 +37,7 @@ Advanced: Priority waiting for locks, semaphores, and condition variables (tests
 
 Stretch: Single level priority donation, including multiple donations (tests/threads/Rubric.stretch):
 	     3/ 3 tests/threads/priority-donate-one
-	  ** 0/ 3 tests/threads/priority-donate-lower
+	     3/ 3 tests/threads/priority-donate-lower
 	     3/ 3 tests/threads/priority-donate-single
 	  ** 0/ 3 tests/threads/priority-donate-multiple
 	  ** 0/ 2 tests/threads/priority-donate-multiple2
@@ -45,8 +45,8 @@ Stretch: Single level priority donation, including multiple donations (tests/thr
 	  ** 0/ 3 tests/threads/priority-donate-condvar
 
 	- Section summary.
-	      2/  7 tests passed
-	      6/ 20 points subtotal
+	      3/  7 tests passed
+	      9/ 20 points subtotal
 
 Extreme: Nested and chained priority donation (tests/threads/Rubric.extreme):
 	  ** 0/ 5 tests/threads/priority-donate-nest

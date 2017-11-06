@@ -62,10 +62,16 @@ lock_init(struct lock *lock)
     lock->holder = NULL;
     lock->donated = false;
     
-    //list_init(&lock->holder->list);
+   
     semaphore_init(&lock->semaphore, 1);
 }
-
+compare_lock_priority(const struct list_elem *a,
+                             const struct list_elem *b,
+                             void *aux UNUSED) {
+    struct thread *aa = list_entry(a, struct thread, elem);
+    struct thread *bb = list_entry(b, struct thread, elem);
+    return aa->priority > bb->priority;
+}
 /* 
  * Acquires LOCK, sleeping until it becomes available if
  * necessary.  The lock must not already be held by the current
@@ -83,23 +89,28 @@ lock_acquire(struct lock *lock)
     ASSERT(!intr_context());
     ASSERT(!lock_held_by_current_thread(lock));
   
-    if(lock->holder != NULL &&  thread_current()->priority > 
+    if(lock->holder  &&  thread_current()->priority > 
         lock->holder->priority){
        
         
-        
+       
         lock->donated = true;
       
         //thread_current()->lock= lock;
-        //list_insert_ordered(&lock->holder->d_list,&thread_current()->allelem, compare_priority(),NULL);
+        
+        //printf("size: %d\n", list_size(&lock->holder->d_list));
         if(lock->holder->real_priority == 0){
             lock->holder->real_priority = lock->holder->priority;
            
         }
-
-  
       
+        
+        //list_insert_ordered(&lock->holder->d_list,&thread_current()->donationelem,compare_lock_priority ,NULL);
+        list_push_back(&lock->holder->d_list,&thread_current()->donationelem);
+        //list_sort(&lock->holder->d_list);
         lock->holder->priority = thread_current()->priority;
+        
+        
         //donate_priority();                                        
     }
     
@@ -147,18 +158,19 @@ lock_release(struct lock *lock)
     if(lock->donated ) {
         
         lock->donated = false;
-        // printf("lock priority: %d\n", lock->holder->priority);
-        //if(lock->holder->real_priority != 0) 
-        lock->holder->priority = lock->holder->real_priority;
-       
-        
+       // if(lock->holder->real_priority != 0) {
+           
+            lock->holder->priority = lock->holder->real_priority;
+       // } 
+        release_lock(lock);
         //release_priority();
         
     }
+     
     lock->holder = NULL;
     
     
-    //release_lock(lock);
+    
     semaphore_up(&lock->semaphore);
     
   
