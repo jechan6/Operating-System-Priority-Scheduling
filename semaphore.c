@@ -60,6 +60,7 @@ bool compare_priority2(const struct list_elem *a,
                              void *aux UNUSED) {
     struct thread *aa = list_entry(a, struct thread, elem);
     struct thread *bb = list_entry(b, struct thread, elem);
+   
     return aa->priority > bb->priority;
 }
 /* 
@@ -79,10 +80,12 @@ semaphore_down(struct semaphore *sema)
 
     enum intr_level old_level = intr_disable();
     while (sema->value == 0) {
+       
         list_insert_ordered(&sema->waiters, &thread_current()->elem, compare_priority2, NULL);
         thread_block();
     }
     sema->value--;
+    
     intr_set_level(old_level);
 }
 
@@ -121,17 +124,20 @@ void
 semaphore_up(struct semaphore *semaphore)
 {
     enum intr_level old_level;
-
+    
     ASSERT(semaphore != NULL);
 
     old_level = intr_disable();
-    //printf("true or false: %d",!list_empty(&semaphore->waiters));
+        
+    semaphore->value++;
+   
     if (!list_empty(&semaphore->waiters)) {
-        thread_yield();
         thread_unblock(list_entry(
             list_pop_front(&semaphore->waiters), struct thread, elem));
+        thread_yield();
     }
+   
     
-    semaphore->value++;
+    
     intr_set_level(old_level);
 }

@@ -244,9 +244,9 @@ thread_create(const char *name, int priority,
     /* Add to run queue. */
     thread_unblock(t);
     
-    if(priority > thread_current()->priority)
+    if(priority > thread_current()->priority) {
         thread_yield();
-    
+    }
    
     //printf("top priority: %d\n", f->priority);
     //printf("current priority: %d\n", thread_current()->priority);
@@ -303,6 +303,9 @@ thread_unblock(struct thread *t)
     //list_push_back(&ready_list, &t->elem);
     list_insert_ordered(&ready_list, &t->elem, compare_priority, NULL);
     t->status = THREAD_READY;
+    //if(t->priority > thread_current()->priority) {
+         //   thread_yield();
+   // } 
     
     intr_set_level(old_level);
 }
@@ -360,7 +363,16 @@ thread_exit(void)
     schedule();
     NOT_REACHED();
 }
-
+//donation_yield(void){
+//    if(list_empty(&ready_list))
+//        return;
+//    struct thread *t = list_entry(list_front(&ready_list),struct thread,elem);
+//    printf("priority: %d\n", t->priority);
+//    printf("current priority: %d\n", thread_current()->priority);
+//    if(thread_current()->priority < t->priority){
+//        thread_yield();
+//    }
+//}
 /* Yields the CPU.  The current thread is not put to sleep and
    may be scheduled again immediately at the scheduler's whim. */
 void
@@ -408,7 +420,7 @@ thread_set_priority(int new_priority)
     //printf("old_top_priority: %d\n", f->priority);
     //int high_priority = t->priority;
     thread_current()->priority = new_priority;
-   
+    
     
     int current_priority = thread_current()->priority;
     //printf("new_priority: %d\n", thread_current()->priority);
@@ -463,7 +475,43 @@ thread_get_recent_cpu(void)
     /* Not yet implemented. */
     return 0;
 }
-
+void donate_priority(void) {
+    struct lock *lock = thread_current()->lock;
+    int l_priority = lock->holder->priority;
+    int c_priority = thread_current()->priority;
+    if(c_priority > l_priority) {
+       
+        lock->holder->priority = c_priority;    
+  
+    }
+}
+void release_priority() {
+      thread_current()->priority = thread_current()->real_priority;
+    //printf("lock holder p: %d\n", lock->holder->real_priority);
+//    if(lock->holder->real_priority != 0)
+//        lock->holder->priority = lock->holder->real_priority;
+//    if(list_empty(&t->d_list ))
+//        return;
+//    struct thread *y = list_entry(list_front(&t->d_list),struct thread, allelem);
+//    printf("top priority: %d\n", y->priority);
+//    if(y->priority > t->priority){
+//        t->priority = y->priority;
+//    }
+    
+}
+void release_lock(struct lock *lock) {
+    struct list_elem *e;
+    
+    
+    for (e = list_begin(&all_list); e != list_end(&all_list);
+        e = list_next(e)) {
+        struct thread *t = list_entry(e, struct thread,donationelem);
+        if(t->lock == lock) {
+            list_remove(e);
+        }
+    }
+    
+}
 /* Idle thread.  Executes when no other thread is ready to run.
 
    The idle thread is initially put on the ready list by
@@ -548,6 +596,8 @@ init_thread(struct thread *t, const char *name, int priority)
     t->stack = (uint8_t *) t + PGSIZE;
     t->priority = priority;
     t->magic = THREAD_MAGIC;
+    
+    list_init(&t->d_list);
     list_push_back(&all_list, &t->allelem);
 }
 

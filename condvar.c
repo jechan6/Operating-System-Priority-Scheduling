@@ -47,8 +47,30 @@ condvar_init(struct condvar *cond)
 {
     ASSERT(cond != NULL);
     list_init(&cond->waiters);
+    
+   
 }
-
+bool compare_priority3(const struct list_elem *a,
+                             const struct list_elem *b,
+                             void *aux UNUSED) {
+    
+   
+  
+    
+    struct semaphore *athread = list_entry(a, struct semaphore,elem); 
+   
+    struct semaphore *bthread = list_entry(b, struct semaphore,elem);
+    //printf("priority A: %d\n", athread->priority);
+    //printf("priority B: %d\n", bthread->priority);
+    
+    //printf("PRIORITY!!!!: %d\n", ba->priority);
+    //printf("IM GOING HEREE\n");
+    //struct thread *athread = list_entry(&aa->waiters, struct thread, elem);
+    //struct thread *bthread = list_entry(&bb->waiters, struct thread, elem);
+    //struct thread *aa = list_entry(a, struct thread,elem);
+    //struct thread *bb = list_entry(b, struct thread,elem);
+    return athread->priority > bthread->priority;
+}
 /* 
  * Atomically releases LOCK and waits for COND to be signaled by
  * some other piece of code.  After COND is signaled, LOCK is
@@ -78,10 +100,17 @@ condvar_wait(struct condvar *cond, struct lock *lock)
     ASSERT(lock != NULL);
     ASSERT(!intr_context());
     ASSERT(lock_held_by_current_thread(lock));
-
+   
     struct semaphore waiter;
     semaphore_init(&waiter, 0);
-    list_push_back(&cond->waiters, &waiter.elem);
+    waiter.priority = thread_current()->priority;
+    list_insert_ordered(&cond->waiters, &waiter.elem, compare_priority3, NULL);
+    //list_push_back(&cond->waiters, &waiter.elem);
+    
+    
+    //struct semaphore *ab = list_entry(list_begin(&cond->waiters), struct semaphore,elem);
+    //struct thread *ba = list_entry(list_begin(&ab->waiters), struct thread,elem);
+    //printf("priority: %d\n", ba->priority);
     lock_release(lock);
     semaphore_down(&waiter);
     lock_acquire(lock);
@@ -103,8 +132,9 @@ condvar_signal(struct condvar *cond, struct lock *lock UNUSED)
     ASSERT(lock != NULL);
     ASSERT(!intr_context());
     ASSERT(lock_held_by_current_thread(lock));
-
+    //list_sort(&cond->waiters, compare_priority3, NULL);
     if (!list_empty(&cond->waiters)) {
+        
         semaphore_up(list_entry(list_pop_front(&cond->waiters), struct semaphore, elem));
     }
 }

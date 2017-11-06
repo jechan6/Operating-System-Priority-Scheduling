@@ -60,6 +60,9 @@ lock_init(struct lock *lock)
     ASSERT(lock != NULL);
 
     lock->holder = NULL;
+    lock->donated = false;
+    
+    //list_init(&lock->holder->list);
     semaphore_init(&lock->semaphore, 1);
 }
 
@@ -79,9 +82,31 @@ lock_acquire(struct lock *lock)
     ASSERT(lock != NULL);
     ASSERT(!intr_context());
     ASSERT(!lock_held_by_current_thread(lock));
+  
+    if(lock->holder != NULL &&  thread_current()->priority > 
+        lock->holder->priority){
+       
+        
+        
+        lock->donated = true;
+      
+        //thread_current()->lock= lock;
+        //list_insert_ordered(&lock->holder->d_list,&thread_current()->allelem, compare_priority(),NULL);
+        if(lock->holder->real_priority == 0){
+            lock->holder->real_priority = lock->holder->priority;
+           
+        }
 
+  
+      
+        lock->holder->priority = thread_current()->priority;
+        //donate_priority();                                        
+    }
+    
     semaphore_down(&lock->semaphore);
+    //thread_current()->lock= NULL;
     lock->holder = thread_current();
+   
 }
 
 /* 
@@ -100,6 +125,7 @@ lock_try_acquire(struct lock *lock)
 
     bool success = semaphore_try_down(&lock->semaphore);
     if (success) {
+        
         lock->holder = thread_current();
     }
     return success;
@@ -117,9 +143,25 @@ lock_release(struct lock *lock)
 {
     ASSERT(lock != NULL);
     ASSERT(lock_held_by_current_thread(lock));
-
+    
+    if(lock->donated ) {
+        
+        lock->donated = false;
+        // printf("lock priority: %d\n", lock->holder->priority);
+        //if(lock->holder->real_priority != 0) 
+        lock->holder->priority = lock->holder->real_priority;
+       
+        
+        //release_priority();
+        
+    }
     lock->holder = NULL;
+    
+    
+    //release_lock(lock);
     semaphore_up(&lock->semaphore);
+    
+  
 }
 
 /* 

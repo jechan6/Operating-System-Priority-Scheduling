@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/rOBOf4W4c_.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/pGQnX8wmc7.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-preempt
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  222,412,800 loops/s.
+Calibrating timer...  235,520,000 loops/s.
 Boot complete.
 Executing 'priority-preempt':
 (priority-preempt) begin
@@ -18,8 +18,8 @@ Executing 'priority-preempt':
 (priority-preempt) The high-priority thread should have already completed.
 (priority-preempt) end
 Execution of 'priority-preempt' complete.
-Timer: 49 ticks
-Thread: 0 idle ticks, 49 kernel ticks, 0 user ticks
+Timer: 48 ticks
+Thread: 0 idle ticks, 48 kernel ticks, 0 user ticks
 Console: 778 characters output
 Keyboard: 0 keys pressed
 Powering off...

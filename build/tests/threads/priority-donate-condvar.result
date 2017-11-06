@@ -21,7 +21,7 @@ Differences in `diff -u' format:
 - (priority-donate-condvar) Thread high acquired lock
 - (priority-donate-condvar) Thread high signaling
 - (priority-donate-condvar) Thread high finished
-- (priority-donate-condvar) Thread med finished
+  (priority-donate-condvar) Thread med finished
 - (priority-donate-condvar) Thread low finished
   (priority-donate-condvar) Thread main finished
   (priority-donate-condvar) end
