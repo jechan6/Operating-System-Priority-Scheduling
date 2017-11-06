@@ -23,9 +23,8 @@ Differences in `diff -u' format:
   (priority-donate-nest) Medium thread got the lock.
   (priority-donate-nest) High thread got the lock.
   (priority-donate-nest) High thread finished.
-- (priority-donate-nest) High thread should have just finished.
-- (priority-donate-nest) Middle thread finished.
+  (priority-donate-nest) High thread should have just finished.
+  (priority-donate-nest) Middle thread finished.
   (priority-donate-nest) Medium thread should just have finished.
-- (priority-donate-nest) Low thread should have priority 31.  Actual priority: 31.
-+ (priority-donate-nest) Low thread should have priority 31.  Actual priority: 0.
+  (priority-donate-nest) Low thread should have priority 31.  Actual priority: 31.
   (priority-donate-nest) end

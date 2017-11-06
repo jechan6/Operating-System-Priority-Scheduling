@@ -421,35 +421,40 @@ thread_set_priority(int new_priority)
    
     //printf("old_top_priority: %d\n", f->priority);
     //int high_priority = t->priority;
-    int old_priority = thread_current()->priority;
-    thread_current()->real_priority = new_priority;
-    thread_current()->priority = new_priority;
-    //release_priority();
-    //printf("I AM HERE\n");
-    //printf("list size: %zu\n", list_size(&thread_current()->d_list));
-    if(old_priority > thread_current()->priority) {
-        
-        if(!list_empty(&thread_current()->d_list)) {
-            
-            struct lock *t = list_entry(list_front(&thread_current()->d_list),
-                struct lock, donation_elem);
-            //printf("priority: %d\n", t->priority);
-            if(t->priority > thread_current()->priority)
-                thread_current()->priority = t->priority;
-                
+    struct thread *t = thread_current();
+    if(t->lowered) {
+        t->real_priority = new_priority;
+    } else {
+        int old_priority = thread_current()->priority;
+        thread_current()->real_priority = new_priority;
+        thread_current()->priority = new_priority;
+        //release_priority();
+        //printf("I AM HERE\n");
+        //printf("list size: %zu\n", list_size(&thread_current()->d_list));
+        if(old_priority > thread_current()->priority) {
+
+            if(!list_empty(&thread_current()->d_list)) {
+
+                struct lock *t = list_entry(list_front(&thread_current()->d_list),
+                    struct lock, donation_elem);
+                //printf("priority: %d\n", t->priority);
+                if(t->priority > thread_current()->priority)
+                    thread_current()->priority = t->priority;
+
+            }
         }
-    }
-    int current_priority = thread_current()->priority;
-    //printf("new_priority: %d\n", thread_current()->priority);
-    //printf("top_priority: %d\n", t->priority);
-    //printf("old_top_priority: %d\n", f->priority);
-    
-        //printf("I Yielded\n");
-    if(!list_empty(&ready_list)) {
-        struct thread *t = list_entry(list_back(&ready_list), struct thread, elem);
-        if(current_priority < t->priority)
-            thread_yield();
-   
+        int current_priority = thread_current()->priority;
+        //printf("new_priority: %d\n", thread_current()->priority);
+        //printf("top_priority: %d\n", t->priority);
+        //printf("old_top_priority: %d\n", f->priority);
+
+            //printf("I Yielded\n");
+        if(!list_empty(&ready_list)) {
+            struct thread *t = list_entry(list_back(&ready_list), struct thread, elem);
+            if(current_priority < t->priority)
+                thread_yield();
+
+        }
     }
     
     //intr_set_level(old_level);
@@ -615,6 +620,8 @@ init_thread(struct thread *t, const char *name, int priority)
     t->stack = (uint8_t *) t + PGSIZE;
     t->priority = priority;
     t->magic = THREAD_MAGIC;
+    t->lowered = false;
+    t->real_priority = 0;
     list_init(&t->d_list);
    
     list_push_back(&all_list, &t->allelem);

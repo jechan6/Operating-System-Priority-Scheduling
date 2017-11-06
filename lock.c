@@ -73,6 +73,7 @@ compare_lock_priority(const struct list_elem *a,
     struct lock *bb = list_entry(b, struct lock, donation_elem);
     return aa->priority > bb->priority;
 }
+
 /* 
  * Acquires LOCK, sleeping until it becomes available if
  * necessary.  The lock must not already be held by the current
@@ -89,29 +90,20 @@ lock_acquire(struct lock *lock)
     ASSERT(lock != NULL);
     ASSERT(!intr_context());
     ASSERT(!lock_held_by_current_thread(lock));
-    if(flag == 1) {
-        flag = -1;
-        
-            //printf("priority: %d name: %s\n", thread_current()->priority, thread_current()->name);
-        
-    }
-    if(lock->holder  ){
+    
+    if(lock->holder != NULL ){
        
         lock->donated = true;
-        
+        lock->holder->lowered = true;
         //printf("size: %d\n", list_size(&lock->holder->d_list));
-        if(lock->holder == 0){
-            lock->holder = lock->holder->priority;
-           
-        }
-   
-        list_insert_ordered(&lock->holder->d_list,&lock->donation_elem,compare_lock_priority ,NULL);
-         if(!list_empty(&thread_current()->d_list)) {
+        if(lock->priority == 0){
             
-            struct lock *lock = list_entry(list_back(&thread_current()->d_list),
-                struct lock, donation_elem);
-            printf("LOCK priority: %d\n", lock->priority);
-         }
+            lock->priority = lock->holder->priority;
+        }
+        
+        list_insert_ordered(&lock->holder->d_list,&lock->donation_elem,compare_lock_priority ,NULL);
+        thread_current()->lock = lock;
+         
         //list_push_back(&lock->holder->d_list,&lock->donation_elem);
         //list_sort(&lock->holder->d_list);
         lock->holder->priority = thread_current()->priority;
@@ -121,7 +113,7 @@ lock_acquire(struct lock *lock)
     }
     
     semaphore_down(&lock->semaphore);
-    //thread_current()->lock= NULL;
+    thread_current()->lock= NULL;
     lock->holder = thread_current();
    
     
@@ -161,26 +153,48 @@ lock_release(struct lock *lock)
 {
     ASSERT(lock != NULL);
     ASSERT(lock_held_by_current_thread(lock));
-    
+    struct thread *t = thread_current();
+    enum intr_level old_level = intr_disable();
     if(lock->donated ) {
         
+            
+            
+       
         lock->donated = false;
-       // if(lock->holder->real_priority != 0) {
-        list_remove(&lock->donation_elem);
-        //release_lock(lock);
-        lock->holder->priority = lock->priority;
-       // } 
+//        if(!list_empty(&thread_current()->d_list)){
+//            struct lock *lock = list_entry(list_front(&thread_current()->d_list), struct lock, donation_elem);
+//            if(lock->holder == thread_current()) {
+//                 printf("SIZE: %zu\n", list_size(&thread_current()->d_list));
+//                 printf("LOCK PRIORITY: %d\n", lock->priority);
+//                 //printf("CURRENT PRIORITY: %d\n", thread_current()->priority);
+//            }
+//               
+//        }
         
+       // if(lock->holder->real_priority != 0) {
+         list_remove(&lock->donation_elem);
+        //release_lock(lock);
+         
+        lock->holder->priority = lock->priority;
+       
+       // } 
+        if(lock->holder->lowered) {
+            lock->holder->lowered = false;
+            if(lock->holder->real_priority != 0)
+                lock->holder->priority = lock->holder->real_priority;
+        }
+       
+     
         //release_priority();
         
     }
-     
+    //printf("CURRENT PRIORITY: %zu\n", list_size(&lock->holder->d_list));
     lock->holder = NULL;
     
     
-    
+
     semaphore_up(&lock->semaphore);
-    
+    intr_set_level(old_level);
   
 }
 
