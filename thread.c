@@ -73,6 +73,8 @@ static struct thread *initial_thread;
 /* Lock used by allocate_tid(). */
 static struct lock tid_lock;
 
+//struct list d_list;
+
 /* Stack frame for kernel_thread(). */
 struct kernel_thread_frame {
     void *eip; /* Return address. */
@@ -127,7 +129,7 @@ thread_init(void)
     lock_init(&tid_lock);
     list_init(&ready_list);
     list_init(&all_list);
-
+    //list_init(&d_list);
     /* Set up a thread structure for the running thread. */
     initial_thread = running_thread();
     init_thread(initial_thread, "main", PRI_DEFAULT);
@@ -423,11 +425,15 @@ thread_set_priority(int new_priority)
     thread_current()->real_priority = new_priority;
     thread_current()->priority = new_priority;
     //release_priority();
+    //printf("I AM HERE\n");
+    //printf("list size: %zu\n", list_size(&thread_current()->d_list));
     if(old_priority > thread_current()->priority) {
-      
+        
         if(!list_empty(&thread_current()->d_list)) {
-            struct thread *t = list_entry(list_front(&thread_current()->d_list),
-                struct thread, donationelem);
+            
+            struct lock *t = list_entry(list_front(&thread_current()->d_list),
+                struct lock, donation_elem);
+            //printf("priority: %d\n", t->priority);
             if(t->priority > thread_current()->priority)
                 thread_current()->priority = t->priority;
                 
@@ -440,7 +446,7 @@ thread_set_priority(int new_priority)
     
         //printf("I Yielded\n");
     if(!list_empty(&ready_list)) {
-        struct thread *t = list_entry(list_front(&ready_list), struct thread, elem);
+        struct thread *t = list_entry(list_back(&ready_list), struct thread, elem);
         if(current_priority < t->priority)
             thread_yield();
    
@@ -609,8 +615,8 @@ init_thread(struct thread *t, const char *name, int priority)
     t->stack = (uint8_t *) t + PGSIZE;
     t->priority = priority;
     t->magic = THREAD_MAGIC;
-    
     list_init(&t->d_list);
+   
     list_push_back(&all_list, &t->allelem);
 }
 

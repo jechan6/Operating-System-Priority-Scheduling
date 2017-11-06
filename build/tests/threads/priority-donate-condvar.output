@@ -1,4 +1,4 @@
-qemu-system-x86_64 -hda /tmp/dzhiIH5t4B.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/EEWxBJmJwX.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-donate-condvar
@@ -15,8 +15,8 @@ Executing 'priority-donate-condvar':
 (priority-donate-condvar) Thread main finished
 (priority-donate-condvar) end
 Execution of 'priority-donate-condvar' complete.
-Timer: 43 ticks
-Thread: 0 idle ticks, 43 kernel ticks, 0 user ticks
+Timer: 44 ticks
+Thread: 0 idle ticks, 44 kernel ticks, 0 user ticks
 Console: 624 characters output
 Keyboard: 0 keys pressed
 Powering off...
