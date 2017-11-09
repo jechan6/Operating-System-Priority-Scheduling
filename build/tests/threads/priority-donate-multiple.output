@@ -1,4 +1,4 @@
-qemu-system-x86_64 -hda /tmp/GIP56p6tVP.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/vAcP2u_v_v.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-donate-multiple
@@ -22,7 +22,7 @@ Executing 'priority-donate-multiple':
 (priority-donate-multiple) end
 Execution of 'priority-donate-multiple' complete.
 Timer: 48 ticks
-Thread: 0 idle ticks, 48 kernel ticks, 0 user ticks
+Thread: 0 idle ticks, 49 kernel ticks, 0 user ticks
 Console: 1105 characters output
 Keyboard: 0 keys pressed
 Powering off...

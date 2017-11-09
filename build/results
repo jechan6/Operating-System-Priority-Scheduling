@@ -6,7 +6,7 @@ pass tests/threads/priority-donate-multiple
 pass tests/threads/priority-donate-multiple2
 FAIL tests/threads/priority-donate-nest
 pass tests/threads/priority-donate-sema
-FAIL tests/threads/priority-donate-condvar
+pass tests/threads/priority-donate-condvar
 pass tests/threads/priority-donate-lower
 pass tests/threads/priority-fifo
 pass tests/threads/priority-preempt

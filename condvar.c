@@ -114,7 +114,7 @@ condvar_wait(struct condvar *cond, struct lock *lock)
     //printf("priority: %d\n", ba->priority);
     lock_release(lock);
     semaphore_down(&waiter);
-  
+    list_sort(&cond->waiters, compare_priority3, NULL);
     lock_acquire(lock);
 }
 
@@ -134,7 +134,18 @@ condvar_signal(struct condvar *cond, struct lock *lock UNUSED)
     ASSERT(lock != NULL);
     ASSERT(!intr_context());
     ASSERT(lock_held_by_current_thread(lock));
+    struct list_elem *e;
+//    if(!list_empty(&cond->waiters))
+//        waiter = list_entry(list_front(&cond->waiters),struct semaphore, elem);
+    for(e= list_begin(&cond->waiters); e!= list_end(&cond->waiters);
+        e = list_next(e)) {
+        struct semaphore *w = list_entry(e,struct semaphore, elem);
+        struct thread *t = list_entry(list_front(&w->waiters),struct thread, elem);
+        if(t->priority > w->priority) {
+            w->priority = t->priority;
+        }
     
+    }
     if (!list_empty(&cond->waiters)) {
         list_sort(&cond->waiters, compare_priority3, NULL);
         semaphore_up(list_entry(list_pop_front(&cond->waiters), struct semaphore, elem));

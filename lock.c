@@ -92,20 +92,22 @@ lock_acquire(struct lock *lock)
     ASSERT(!lock_held_by_current_thread(lock));
     
     if(lock->holder != NULL ){
-       
+        
         lock->donated = true;
         lock->holder->lowered = true;
+        //printf("priority: %d\n", lock->holder->priority);
         //printf("size: %d\n", list_size(&lock->holder->d_list));
         if(lock->priority == 0){
           
             lock->priority = lock->holder->priority;
         }
+   
         lock->d_priority = thread_current()->priority;
         lock->holder->priority = thread_current()->priority;
         thread_current()->lock = lock;
         list_insert_ordered(&lock->holder->d_list,&lock->donation_elem,compare_lock_priority ,NULL);
         
-         
+     
         //list_push_back(&lock->holder->d_list,&lock->donation_elem);
         //list_sort(&lock->holder->d_list);
         
@@ -113,12 +115,13 @@ lock_acquire(struct lock *lock)
         
         //donate_priority();                          0['              
     }
-    
+  
     semaphore_down(&lock->semaphore);
     thread_current()->lock= NULL;
-    lock->holder = thread_current();
-   
+      
     
+    lock->holder = thread_current();
+
 }
 
 /* 
@@ -216,7 +219,7 @@ lock_release(struct lock *lock)
     struct thread *t = thread_current();
     enum intr_level old_level = intr_disable();
     if(lock->donated ) {
-
+        
         
         lock->donated = false;
 

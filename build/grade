@@ -1,4 +1,4 @@
-TOTAL TESTING SCORE: 67.0%
+TOTAL TESTING SCORE: 70.0%
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -8,10 +8,10 @@ Test Set                                      Pts Max  % Ttl  % Max
 --------------------------------------------- --- --- ------ ------
 tests/threads/Rubric.basic                     30/ 30  30.0%/ 30.0%
 tests/threads/Rubric.advanced                  20/ 20  20.0%/ 20.0%
-tests/threads/Rubric.stretch                   17/ 20  17.0%/ 20.0%
+tests/threads/Rubric.stretch                   20/ 20  20.0%/ 20.0%
 tests/threads/Rubric.extreme                    0/ 10   0.0%/ 10.0%
 --------------------------------------------- --- --- ------ ------
-Total                                                  67.0%/ 80.0%
+Total                                                  70.0%/ 80.0%
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -42,11 +42,11 @@ Stretch: Single level priority donation, including multiple donations (tests/thr
 	     3/ 3 tests/threads/priority-donate-multiple
 	     2/ 2 tests/threads/priority-donate-multiple2
 	     3/ 3 tests/threads/priority-donate-sema
-	  ** 0/ 3 tests/threads/priority-donate-condvar
+	     3/ 3 tests/threads/priority-donate-condvar
 
 	- Section summary.
-	      6/  7 tests passed
-	     17/ 20 points subtotal
+	      7/  7 tests passed
+	     20/ 20 points subtotal
 
 Extreme: Nested and chained priority donation (tests/threads/Rubric.extreme):
 	  ** 0/ 5 tests/threads/priority-donate-nest
