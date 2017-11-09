@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/Wb8ZQbxqw6.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/Qvv0Y0Ye1n.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-sema
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  62,156,800 loops/s.
+Calibrating timer...  91,238,400 loops/s.
 Boot complete.
 Executing 'priority-sema':
 (priority-sema) begin
@@ -31,8 +31,8 @@ Executing 'priority-sema':
 (priority-sema) Back in main thread.
 (priority-sema) end
 Execution of 'priority-sema' complete.
-Timer: 51 ticks
-Thread: 0 idle ticks, 52 kernel ticks, 0 user ticks
+Timer: 47 ticks
+Thread: 0 idle ticks, 48 kernel ticks, 0 user ticks
 Console: 1191 characters output
 Keyboard: 0 keys pressed
 Powering off...

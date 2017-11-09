@@ -3,7 +3,7 @@ pass tests/threads/priority-change
 FAIL tests/threads/priority-donate-one
 pass tests/threads/priority-donate-single
 pass tests/threads/priority-donate-multiple
-FAIL tests/threads/priority-donate-multiple2
+pass tests/threads/priority-donate-multiple2
 FAIL tests/threads/priority-donate-nest
 FAIL tests/threads/priority-donate-sema
 FAIL tests/threads/priority-donate-condvar

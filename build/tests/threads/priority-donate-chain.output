@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/nezxT1y7zd.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/MCF38aUvht.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-donate-chain
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  85,094,400 loops/s.
+Calibrating timer...  142,336,000 loops/s.
 Boot complete.
 Executing 'priority-donate-chain':
 (priority-donate-chain) begin
@@ -24,20 +24,20 @@ Executing 'priority-donate-chain':
 (priority-donate-chain) main should have priority 21.  Actual priority: 3.
 (priority-donate-chain) interloper 7 finished.
 (priority-donate-chain) thread 1 got lock
-(priority-donate-chain) thread 1 should have priority 21. Actual priority: 0
+(priority-donate-chain) thread 1 should have priority 21. Actual priority: 6
 (priority-donate-chain) thread 2 got lock
-(priority-donate-chain) thread 2 should have priority 21. Actual priority: 3
+(priority-donate-chain) thread 2 should have priority 21. Actual priority: 9
 (priority-donate-chain) thread 3 got lock
-(priority-donate-chain) thread 3 should have priority 21. Actual priority: 6
+(priority-donate-chain) thread 3 should have priority 21. Actual priority: 12
 (priority-donate-chain) thread 4 got lock
-(priority-donate-chain) thread 4 should have priority 21. Actual priority: 9
+(priority-donate-chain) thread 4 should have priority 21. Actual priority: 15
 (priority-donate-chain) thread 5 got lock
-(priority-donate-chain) thread 5 should have priority 21. Actual priority: 12
+(priority-donate-chain) thread 5 should have priority 21. Actual priority: 18
 (priority-donate-chain) thread 6 got lock
-(priority-donate-chain) thread 6 should have priority 21. Actual priority: 15
+(priority-donate-chain) thread 6 should have priority 21. Actual priority: 21
 (priority-donate-chain) thread 7 got lock
-(priority-donate-chain) thread 7 should have priority 21. Actual priority: 18
-(priority-donate-chain) thread 7 finishing with priority 18.
+(priority-donate-chain) thread 7 should have priority 21. Actual priority: 21
+(priority-donate-chain) thread 7 finishing with priority 21.
 (priority-donate-chain) thread 6 finishing with priority 18.
 (priority-donate-chain) thread 5 finishing with priority 15.
 (priority-donate-chain) thread 4 finishing with priority 12.
@@ -48,8 +48,8 @@ Executing 'priority-donate-chain':
 (priority-donate-chain) main finishing with priority 0.
 (priority-donate-chain) end
 Execution of 'priority-donate-chain' complete.
-Timer: 53 ticks
-Thread: 0 idle ticks, 53 kernel ticks, 0 user ticks
-Console: 2627 characters output
+Timer: 58 ticks
+Thread: 0 idle ticks, 59 kernel ticks, 0 user ticks
+Console: 2630 characters output
 Keyboard: 0 keys pressed
 Powering off...

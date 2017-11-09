@@ -9,6 +9,7 @@ struct lock {
     struct semaphore semaphore; /* Binary semaphore controlling access */
     bool donated;
     int priority;
+    int d_priority;
     struct list_elem donation_elem;
 };
 extern int flag;

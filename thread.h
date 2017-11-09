@@ -88,6 +88,7 @@ struct thread {
     uint8_t *stack; /* Saved stack pointer. */
     int priority; /* Priority. */
     int real_priority;
+    int orig_priority;
     struct list d_list;
     struct list_elem allelem; /* List element for all threads list. */
     struct list_elem donationelem;

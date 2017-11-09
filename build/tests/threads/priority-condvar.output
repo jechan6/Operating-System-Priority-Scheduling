@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/fC_I9Lb01U.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/vYAli3Gfur.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-condvar
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  87,756,800 loops/s.
+Calibrating timer...  103,116,800 loops/s.
 Boot complete.
 Executing 'priority-condvar':
 (priority-condvar) begin
@@ -41,8 +41,8 @@ Executing 'priority-condvar':
 (priority-condvar) Thread priority 21 woke up.
 (priority-condvar) end
 Execution of 'priority-condvar' complete.
-Timer: 51 ticks
-Thread: 0 idle ticks, 51 kernel ticks, 0 user ticks
-Console: 1666 characters output
+Timer: 50 ticks
+Thread: 0 idle ticks, 50 kernel ticks, 0 user ticks
+Console: 1667 characters output
 Keyboard: 0 keys pressed
 Powering off...

@@ -97,16 +97,18 @@ lock_acquire(struct lock *lock)
         lock->holder->lowered = true;
         //printf("size: %d\n", list_size(&lock->holder->d_list));
         if(lock->priority == 0){
-            
+          
             lock->priority = lock->holder->priority;
         }
-        
-        list_insert_ordered(&lock->holder->d_list,&lock->donation_elem,compare_lock_priority ,NULL);
+        lock->d_priority = thread_current()->priority;
+        lock->holder->priority = thread_current()->priority;
         thread_current()->lock = lock;
+        list_insert_ordered(&lock->holder->d_list,&lock->donation_elem,compare_lock_priority ,NULL);
+        
          
         //list_push_back(&lock->holder->d_list,&lock->donation_elem);
         //list_sort(&lock->holder->d_list);
-        lock->holder->priority = thread_current()->priority;
+        
         
         
         //donate_priority();                          0['              
@@ -140,7 +142,35 @@ lock_try_acquire(struct lock *lock)
     }
     return success;
 }
-
+void check_priority(struct lock *l){
+    list_remove(&l->donation_elem);
+    l->holder->priority = l->priority;
+    if(list_empty(&l->holder->d_list)) {
+        //printf(" PRIORITY: %d\n",l->holder->orig_priority);
+        if(l->holder->orig_priority < l->holder->priority) 
+            l->holder->priority = l->holder->orig_priority;
+        
+    } else {
+        //list_sort(&l->holder->d_list, compare_lock_priority, NULL);
+       struct lock *lock = list_entry( list_front(&l->holder->d_list), struct lock, donation_elem);
+      //printf(" PRIORITY: %d\n", lock->priority);
+   
+   // printf("SIZE: %zu\n", list_size(&thread_current()->d_list));
+   
+       if(lock->d_priority > thread_current()->priority) {
+            //printf("SIZE: %zu\n", list_size(&thread_current()->d_list));
+           //printf("cur PRIORITY: %d\n", thread_current()->orig_priority);
+          thread_current()->priority = lock->d_priority;
+            //thread_current()->priority = lock->priority;
+       }
+        //printf("CURRENT PRIORITY: %d\n", thread_current()->priority);
+        
+    }
+        //thread_current()->priority = thread_current()->orig_priority;
+    
+   
+    
+}
 /* 
  * Releases LOCK, which must be owned by the current thread.
  *
@@ -156,27 +186,26 @@ lock_release(struct lock *lock)
     struct thread *t = thread_current();
     enum intr_level old_level = intr_disable();
     if(lock->donated ) {
+
         
-            
-            
-       
         lock->donated = false;
-//        if(!list_empty(&thread_current()->d_list)){
-//            struct lock *lock = list_entry(list_front(&thread_current()->d_list), struct lock, donation_elem);
-//            if(lock->holder == thread_current()) {
-//                 printf("SIZE: %zu\n", list_size(&thread_current()->d_list));
-//                 printf("LOCK PRIORITY: %d\n", lock->priority);
-//                 //printf("CURRENT PRIORITY: %d\n", thread_current()->priority);
-//            }
-//               
-//        }
-        
-       // if(lock->holder->real_priority != 0) {
-         list_remove(&lock->donation_elem);
-        //release_lock(lock);
-         
-        lock->holder->priority = lock->priority;
+
        
+       // if(lock->holder->real_priority != 0) {
+        //printf("LOCK PRIORITY: %d\n", lock->holder->priority);
+        //lock->d_priority = lock->holder->priority;
+        //release_lock(lock);
+       
+        //printf(" ORIG: %d\n", lock->priority);
+        //lock->holder->priority = lock->priority;
+         check_priority(lock);
+        //list_remove(&lock->donation_elem);
+        //list_remove(&lock->donation_elem);
+       
+      
+        
+        
+      
        // } 
         if(lock->holder->lowered) {
             lock->holder->lowered = false;
@@ -187,11 +216,11 @@ lock_release(struct lock *lock)
      
         //release_priority();
         
-    }
+    } 
     //printf("CURRENT PRIORITY: %zu\n", list_size(&lock->holder->d_list));
     lock->holder = NULL;
     
-    
+ 
 
     semaphore_up(&lock->semaphore);
     intr_set_level(old_level);
