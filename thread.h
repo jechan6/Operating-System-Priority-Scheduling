@@ -96,7 +96,7 @@ struct thread {
     bool lowered;
     /* Shared between thread.c and sempahore.c. */
     struct list_elem elem; /* List element. */
-
+    struct thread *donatedTo;
 #ifdef USERPROG
     /* Owned by userprog/process.c. */
     uint32_t *pagedir; /* Page directory. */

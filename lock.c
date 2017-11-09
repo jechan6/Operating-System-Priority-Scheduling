@@ -90,24 +90,44 @@ lock_acquire(struct lock *lock)
     ASSERT(lock != NULL);
     ASSERT(!intr_context());
     ASSERT(!lock_held_by_current_thread(lock));
+    struct thread *cur = thread_current();
     
-    if(lock->holder != NULL ){
+    if(lock->holder != NULL){
         
         lock->donated = true;
         lock->holder->lowered = true;
+        
+       
         //printf("priority: %d\n", lock->holder->priority);
         //printf("size: %d\n", list_size(&lock->holder->d_list));
         if(lock->priority == 0){
           
             lock->priority = lock->holder->priority;
         }
-   
-        lock->d_priority = thread_current()->priority;
-        lock->holder->priority = thread_current()->priority;
+       
+        lock->d_priority = cur->priority;
+        lock->holder->priority = cur->priority;
+        cur->donatedTo = lock->holder;
+        if(lock->holder->donatedTo != NULL) {
+            lock->holder->donatedTo->priority = cur->priority;
+            
+        }
+//        if(lock->holder->nested) {
+//            printf("nested priority: %d\n", cur->orig_priority);
+//            printf("holder priority: %d\n", lock->holder->orig_priority);
+//            lock->holder->priority = cur->orig_priority;
+//            lock->holder->nested = false;
+//        }
         thread_current()->lock = lock;
+        
+        
         list_insert_ordered(&lock->holder->d_list,&lock->donation_elem,compare_lock_priority ,NULL);
         
-     
+        
+//        if(!list_empty(&(lock->holder->d_list))) {
+//            struct lock *lock3 = list_entry( list_front(&(lock->holder->d_list)), struct lock, donation_elem);
+//            printf("priorityESRGERGE: %d\n", lock3->d_priority);
+//        }
         //list_push_back(&lock->holder->d_list,&lock->donation_elem);
         //list_sort(&lock->holder->d_list);
         

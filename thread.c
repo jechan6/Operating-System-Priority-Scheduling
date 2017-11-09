@@ -498,16 +498,7 @@ thread_get_recent_cpu(void)
     /* Not yet implemented. */
     return 0;
 }
-void donate_priority(void) {
-    struct lock *lock = thread_current()->lock;
-    int l_priority = lock->holder->priority;
-    int c_priority = thread_current()->priority;
-    if(c_priority > l_priority) {
-       
-        lock->holder->priority = c_priority;    
-  
-    }
-}
+
 void release_priority() {
       thread_current()->priority = thread_current()->real_priority;
       
@@ -622,6 +613,7 @@ init_thread(struct thread *t, const char *name, int priority)
     t->priority = priority;
     t->magic = THREAD_MAGIC;
     t->lowered = false;
+    
     t->real_priority = 0;
     t->orig_priority = priority;
     list_init(&t->d_list);
