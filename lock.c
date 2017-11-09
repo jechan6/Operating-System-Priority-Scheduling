@@ -91,34 +91,60 @@ lock_acquire(struct lock *lock)
     ASSERT(!intr_context());
     ASSERT(!lock_held_by_current_thread(lock));
     struct thread *cur = thread_current();
-    
+    struct thread *lock_h;
+    struct thread *lock_donated;
+    cur->lock = lock;
+    struct lock *donated;
     if(lock->holder != NULL){
         
         lock->donated = true;
         lock->holder->lowered = true;
+        lock_h = lock->holder;
         
-       
         //printf("priority: %d\n", lock->holder->priority);
         //printf("size: %d\n", list_size(&lock->holder->d_list));
         if(lock->priority == 0){
           
             lock->priority = lock->holder->priority;
         }
-       
+    
         lock->d_priority = cur->priority;
         lock->holder->priority = cur->priority;
-        cur->donatedTo = lock->holder;
-        if(lock->holder->donatedTo != NULL) {
-            lock->holder->donatedTo->priority = cur->priority;
+        cur->lock = lock;
+        donated = cur->lock;
+        lock_donated = lock->holder->donatedTo;
+        while(donated->holder != NULL && lock->holder != NULL) {
+            donated->holder->priority = lock->holder->priority;
+            //lock->holder = donated->holder;
+            //printf("lock holder: %d\n", lock->holder->priority);
+            //lock = lock->holder->donatedTo->lock;
+            //if(lock->holder != NULL && lock->holder->donatedTo != NULL) {
+                //lock = lock->holder->lock;
+                //printf("priority: %d\n", lock->holder->lock->priority);
+                //l = lock->holder->lock;
+                
+                //cur = lock->holder;
+                //lock = lock->holder->lock;
+                //l = lock->holder->lock;
+                //printf("lock: %d\n", l->holder->lock);
+                //l = cur->lock;
+            //lock = cur->donatedTo->;
+            //printf("priority: %d\n", cur->priority);
+            donated = donated->holder->lock;
+                
+            //}
+            //l = cur->lock;
+            
             
         }
+     
 //        if(lock->holder->nested) {
 //            printf("nested priority: %d\n", cur->orig_priority);
 //            printf("holder priority: %d\n", lock->holder->orig_priority);
 //            lock->holder->priority = cur->orig_priority;
 //            lock->holder->nested = false;
 //        }
-        thread_current()->lock = lock;
+        //thread_current()->lock = lock;
         
         
         list_insert_ordered(&lock->holder->d_list,&lock->donation_elem,compare_lock_priority ,NULL);
@@ -137,8 +163,7 @@ lock_acquire(struct lock *lock)
     }
   
     semaphore_down(&lock->semaphore);
-    thread_current()->lock= NULL;
-      
+    lock->holder->lock == NULL;
     
     lock->holder = thread_current();
 

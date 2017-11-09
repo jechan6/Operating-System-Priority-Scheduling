@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/qb53_wkUVR.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/3xsu0q4c3N.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-donate-sema
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  311,705,600 loops/s.
+Calibrating timer...  260,096,000 loops/s.
 Boot complete.
 Executing 'priority-donate-sema':
 (priority-donate-sema) begin

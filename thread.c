@@ -613,7 +613,7 @@ init_thread(struct thread *t, const char *name, int priority)
     t->priority = priority;
     t->magic = THREAD_MAGIC;
     t->lowered = false;
-    
+    t->donatedTo = NULL;
     t->real_priority = 0;
     t->orig_priority = priority;
     list_init(&t->d_list);

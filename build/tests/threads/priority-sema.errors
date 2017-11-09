@@ -1,7 +1,7 @@
 Use of literal control characters in variable names is deprecated at /home/pintos/pintos/src/utils/pintos line 911.
 Prototype mismatch: sub main::SIGVTALRM () vs none at /home/pintos/pintos/src/utils/pintos line 935.
 Constant subroutine SIGVTALRM redefined at /home/pintos/pintos/src/utils/pintos line 927.
-WARNING: Image format was not specified for '/tmp/4xIuMdZgbf.dsk' and probing guessed raw.
+WARNING: Image format was not specified for '/tmp/9b7YihY2qj.dsk' and probing guessed raw.
          Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
          Specify the 'raw' format explicitly to remove the restrictions.
 warning: TCG doesn't support requested feature: CPUID.01H:ECX.vmx [bit 5]
