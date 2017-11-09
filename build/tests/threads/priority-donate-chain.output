@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/MCF38aUvht.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/3_iwyTOaXu.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-donate-chain
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  142,336,000 loops/s.
+Calibrating timer...  294,502,400 loops/s.
 Boot complete.
 Executing 'priority-donate-chain':
 (priority-donate-chain) begin
@@ -48,8 +48,8 @@ Executing 'priority-donate-chain':
 (priority-donate-chain) main finishing with priority 0.
 (priority-donate-chain) end
 Execution of 'priority-donate-chain' complete.
-Timer: 58 ticks
-Thread: 0 idle ticks, 59 kernel ticks, 0 user ticks
+Timer: 56 ticks
+Thread: 0 idle ticks, 56 kernel ticks, 0 user ticks
 Console: 2630 characters output
 Keyboard: 0 keys pressed
 Powering off...

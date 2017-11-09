@@ -143,26 +143,56 @@ lock_try_acquire(struct lock *lock)
     return success;
 }
 void check_priority(struct lock *l){
+    int frontp;
+    int backp;
+    if(!list_empty(&thread_current()->d_list)) {
+        struct lock *lock2 = list_entry( list_back(&(thread_current()->d_list)), struct lock, donation_elem);
+        struct lock *lock3 = list_entry( list_front(&(thread_current()->d_list)), struct lock, donation_elem);
+        frontp = lock2->priority;
+        backp = lock3->priority;
+        //printf(" ORIG: %d\n", lock2->priority);
+       // printf(" ORIG: %d\n", lock3->priority);
+    }
+//     printf(" ORIG: %d\n", lock2->priority);
+//        printf(" old PRIORITY: %d\n", l->priority);
+//     printf("HOLDER PRIORITY: %d\n", l->holder->priority);
+//    }
     list_remove(&l->donation_elem);
+    //int orig = lock2->holder->orig_priority;
+        
+   
+    //list_sort(&l->holder->d_list, compare_lock_priority, NULL);
+    //thread_current()->priority = l->priority;
+    
+    //thread_current()->priority = thread_current()->orig_priority;
     l->holder->priority = l->priority;
     if(list_empty(&l->holder->d_list)) {
         //printf(" PRIORITY: %d\n",l->holder->orig_priority);
+        
         if(l->holder->orig_priority < l->holder->priority) 
-            l->holder->priority = l->holder->orig_priority;
+           l->holder->priority = l->holder->orig_priority;
+       
+        
         
     } else {
         //list_sort(&l->holder->d_list, compare_lock_priority, NULL);
-       struct lock *lock = list_entry( list_front(&l->holder->d_list), struct lock, donation_elem);
-      //printf(" PRIORITY: %d\n", lock->priority);
-   
-   // printf("SIZE: %zu\n", list_size(&thread_current()->d_list));
-   
-       if(lock->d_priority > thread_current()->priority) {
+       struct lock *lock = list_entry( list_front(&thread_current()->d_list), struct lock, donation_elem);
+    
+       
+       //printf(" D PRIORITY: %d\n", lock->d_priority);
+       //printf("SIZE: %zu\n", list_size(&l->holder->d_list));
+       //list_sort(&l->holder->d_list, compare_lock_priority, NULL);
+       if(lock->d_priority > l->holder->priority ) {
             //printf("SIZE: %zu\n", list_size(&thread_current()->d_list));
-           //printf("cur PRIORITY: %d\n", thread_current()->orig_priority);
-          thread_current()->priority = lock->d_priority;
+          //printf("cur PRIORITY: %d\n", thread_current()->priority);
+          // printf(" PRIORITY: %s\n",thread_current()->name);
+           if(frontp != backp) {
+               l->holder->priority = lock->d_priority;
+           }
+          
+          //printf("CURRENT PRIORITY: %d\n", lock->d_priority);
             //thread_current()->priority = lock->priority;
-       }
+       } 
         //printf("CURRENT PRIORITY: %d\n", thread_current()->priority);
         
     }
@@ -196,9 +226,10 @@ lock_release(struct lock *lock)
         //lock->d_priority = lock->holder->priority;
         //release_lock(lock);
        
-        //printf(" ORIG: %d\n", lock->priority);
-        //lock->holder->priority = lock->priority;
-         check_priority(lock);
+        //printf(" current priorit: %d\n", lock->holder->priority);
+         //lock->holder->priority = lock->priority;
+        
+        check_priority(lock);
         //list_remove(&lock->donation_elem);
         //list_remove(&lock->donation_elem);
        

@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/gvDorOu3o_.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/J7M7SAJGgu.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-donate-lower
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  52,377,600 loops/s.
+Calibrating timer...  209,510,400 loops/s.
 Boot complete.
 Executing 'priority-donate-lower':
 (priority-donate-lower) begin
@@ -18,8 +18,8 @@ Executing 'priority-donate-lower':
 (priority-donate-lower) Main thread should have priority 21.  Actual priority: 21.
 (priority-donate-lower) end
 Execution of 'priority-donate-lower' complete.
-Timer: 38 ticks
-Thread: 0 idle ticks, 38 kernel ticks, 0 user ticks
-Console: 864 characters output
+Timer: 42 ticks
+Thread: 0 idle ticks, 42 kernel ticks, 0 user ticks
+Console: 865 characters output
 Keyboard: 0 keys pressed
 Powering off...

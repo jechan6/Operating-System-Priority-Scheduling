@@ -132,6 +132,7 @@ semaphore_up(struct semaphore *semaphore)
     semaphore->value++;
    
     if (!list_empty(&semaphore->waiters)) {
+        list_sort(&semaphore->waiters, compare_priority2,NULL);
         thread_unblock(list_entry(
             list_pop_front(&semaphore->waiters), struct thread, elem));
         thread_yield();

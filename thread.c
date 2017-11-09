@@ -422,6 +422,7 @@ thread_set_priority(int new_priority)
     //printf("old_top_priority: %d\n", f->priority);
     //int high_priority = t->priority;
     struct thread *t = thread_current();
+    t->orig_priority = new_priority;
     if(t->lowered) {
         t->real_priority = new_priority;
     } else {
