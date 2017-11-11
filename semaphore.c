@@ -36,7 +36,7 @@
 #include "threads/semaphore.h"
 #include "threads/interrupt.h"
 #include "threads/thread.h"
-
+#include "threads/utils.h"
 /* 
  * Initializes semaphore SEMA to VALUE.  A semaphore is a
  * nonnegative integer along with two atomic operators for
@@ -55,14 +55,17 @@ semaphore_init(struct semaphore *sema, unsigned value)
     sema->value = value;
     list_init(&sema->waiters);
 }
-bool compare_priority2(const struct list_elem *a,
-                             const struct list_elem *b,
-                             void *aux UNUSED) {
-    struct thread *aa = list_entry(a, struct thread, elem);
-    struct thread *bb = list_entry(b, struct thread, elem);
-   
-    return aa->priority > bb->priority;
-}
+//bool utils_compare_priority(const struct list_elem *a,
+//                             const struct list_elem *b,
+//                             void *aux UNUSED);
+//bool compare_priority2(const struct list_elem *a,
+//                             const struct list_elem *b,
+//                             void *aux UNUSED) {
+//    struct thread *aa = list_entry(a, struct thread, elem);
+//    struct thread *bb = list_entry(b, struct thread, elem);
+//   
+//    return aa->priority > bb->priority;
+//}
 /* 
  * Down or Dijkstra's "P" operation on a semaphore.  Waits for SEMA's 
  * value to become positive and then atomically decrements it.
@@ -81,7 +84,7 @@ semaphore_down(struct semaphore *sema)
     enum intr_level old_level = intr_disable();
     while (sema->value == 0) {
        
-        list_insert_ordered(&sema->waiters, &thread_current()->elem, compare_priority2, NULL);
+        list_insert_ordered(&sema->waiters, &thread_current()->elem, utils_compare_priority, NULL);
         thread_block();
     }
     sema->value--;
@@ -132,7 +135,7 @@ semaphore_up(struct semaphore *semaphore)
     semaphore->value++;
    
     if (!list_empty(&semaphore->waiters)) {
-        list_sort(&semaphore->waiters, compare_priority2,NULL);
+        list_sort(&semaphore->waiters, utils_compare_priority,NULL);
         thread_unblock(list_entry(
             list_pop_front(&semaphore->waiters), struct thread, elem));
       

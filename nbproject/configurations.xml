@@ -97,6 +97,8 @@
       <in>palloc.c</in>
       <in>semaphore.c</in>
       <in>thread.c</in>
+      <in>utils.c</in>
+      <in>utils.h</in>
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -371,6 +373,10 @@
       <item path="thread.c" ex="false" tool="0" flavor2="0">
         <cTool flags="0">
         </cTool>
+      </item>
+      <item path="utils.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="utils.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

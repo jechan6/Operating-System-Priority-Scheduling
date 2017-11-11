@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/uLby6hYR9d.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/8wVcbsyZKT.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-donate-multiple
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  246,169,600 loops/s.
+Calibrating timer...  109,977,600 loops/s.
 Boot complete.
 Executing 'priority-donate-multiple':
 (priority-donate-multiple) begin
@@ -21,8 +21,8 @@ Executing 'priority-donate-multiple':
 (priority-donate-multiple) Main thread should have priority 31.  Actual priority: 31.
 (priority-donate-multiple) end
 Execution of 'priority-donate-multiple' complete.
-Timer: 53 ticks
-Thread: 0 idle ticks, 53 kernel ticks, 0 user ticks
+Timer: 54 ticks
+Thread: 0 idle ticks, 54 kernel ticks, 0 user ticks
 Console: 1105 characters output
 Keyboard: 0 keys pressed
 Powering off...

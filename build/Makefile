@@ -23,7 +23,7 @@ threads_SRC += threads/lock.c		# Locks.
 threads_SRC += threads/condvar.c	# Condition Variables.
 threads_SRC += threads/palloc.c		# Page allocator.
 threads_SRC += threads/malloc.c		# Subpage allocator.
-
+threads_SRC += threads/utils.c
 # Device driver code.
 devices_SRC  = devices/pit.c		# Programmable interrupt timer chip.
 devices_SRC += devices/timer.c		# Periodic timer device.

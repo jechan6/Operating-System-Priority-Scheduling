@@ -110,6 +110,7 @@ struct thread {
    If true, use multi-level feedback queue scheduler.
    Controlled by kernel command-line option "-o mlfqs". */
 extern bool thread_mlfqs;
+extern struct list ready_list;
 //extern struct list d_list;
 
 void thread_init(void);

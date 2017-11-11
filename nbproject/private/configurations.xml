@@ -47,6 +47,8 @@
       <in>switch.h</in>
       <in>thread.c</in>
       <in>thread.h</in>
+      <in>utils.c</in>
+      <in>utils.h</in>
       <in>vaddr.h</in>
     </df>
   </logicalFolder>

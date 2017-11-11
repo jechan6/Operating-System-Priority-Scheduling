@@ -46,6 +46,7 @@
 #include "threads/lock.h"
 #include "threads/condvar.h"
 #include "threads/vaddr.h"
+#include "threads/utils.h"
 
 #ifdef USERPROG
 #include "userprog/process.h"
@@ -58,7 +59,7 @@
 
 /* List of processes in THREAD_READY state, that is, processes
    that are ready to run but not actually running. */
-static struct list ready_list;
+struct list ready_list;
 
 /* List of all processes.  Processes are added to this list
    when they are first scheduled and removed when they exit. */
@@ -107,6 +108,10 @@ static void *alloc_frame(struct thread *, size_t size);
 static void schedule(void);
 void thread_schedule_tail(struct thread *prev);
 static tid_t allocate_tid(void);
+
+//bool utils_compare_priority(const struct list_elem *a,
+//                             const struct list_elem *b,
+//                             void *aux UNUSED);
 
 /* Initializes the threading system by transforming the code
    that's currently running into a thread.  This can't work in
@@ -276,13 +281,13 @@ thread_block(void)
     schedule();
 }
 
-bool compare_priority(const struct list_elem *a,
-                             const struct list_elem *b,
-                             void *aux UNUSED) {
-    struct thread *aa = list_entry(a, struct thread, elem);
-    struct thread *bb = list_entry(b, struct thread, elem);
-    return aa->priority > bb->priority;
-}
+//bool compare_priority(const struct list_elem *a,
+//                             const struct list_elem *b,
+//                             void *aux UNUSED) {
+//    struct thread *aa = list_entry(a, struct thread, elem);
+//    struct thread *bb = list_entry(b, struct thread, elem);
+//    return aa->priority > bb->priority;
+//}
 
 /* Transitions a blocked thread T to the ready-to-run state.
    This is an error if T is not blocked.  (Use thread_yield() to
@@ -303,11 +308,9 @@ thread_unblock(struct thread *t)
     old_level = intr_disable();
     ASSERT(t->status == THREAD_BLOCKED);
     //list_push_back(&ready_list, &t->elem);
-    list_insert_ordered(&ready_list, &t->elem, compare_priority, NULL);
+    list_insert_ordered(&ready_list, &t->elem, utils_compare_priority, NULL);
     t->status = THREAD_READY;
-    //if(t->priority > thread_current()->priority) {
-         //   thread_yield();
-   // } 
+   
     
     intr_set_level(old_level);
 }
@@ -365,16 +368,7 @@ thread_exit(void)
     schedule();
     NOT_REACHED();
 }
-//donation_yield(void){
-//    if(list_empty(&ready_list))
-//        return;
-//    struct thread *t = list_entry(list_front(&ready_list),struct thread,elem);
-//    printf("priority: %d\n", t->priority);
-//    printf("current priority: %d\n", thread_current()->priority);
-//    if(thread_current()->priority < t->priority){
-//        thread_yield();
-//    }
-//}
+
 /* Yields the CPU.  The current thread is not put to sleep and
    may be scheduled again immediately at the scheduler's whim. */
 void
@@ -388,7 +382,7 @@ thread_yield(void)
     old_level = intr_disable();
     if (cur != idle_thread)
         //list_push_back(&ready_list, &cur->elem);
-        list_insert_ordered(&ready_list, &cur->elem, compare_priority,NULL);
+        list_insert_ordered(&ready_list, &cur->elem, utils_compare_priority,NULL);
     cur->status = THREAD_READY;
     schedule();
     intr_set_level(old_level);
@@ -415,50 +409,16 @@ void
 thread_set_priority(int new_priority)
 {
     
-    //int old_level = intr_disable();
    
-    //printf("old_priority: %d\n", thread_current()->priority);
-   
-    //printf("old_top_priority: %d\n", f->priority);
-    //int high_priority = t->priority;
     struct thread *t = thread_current();
     t->orig_priority = new_priority;
     if(t->lowered) {
         t->real_priority = new_priority;
     } else {
-        int old_priority = thread_current()->priority;
-        thread_current()->real_priority = new_priority;
-        thread_current()->priority = new_priority;
-        //release_priority();
-        //printf("I AM HERE\n");
-        //printf("list size: %zu\n", list_size(&thread_current()->d_list));
-        if(old_priority > thread_current()->priority) {
+        utils_set_priority(new_priority);
 
-            if(!list_empty(&thread_current()->d_list)) {
-
-                struct lock *t = list_entry(list_front(&thread_current()->d_list),
-                    struct lock, donation_elem);
-                //printf("priority: %d\n", t->priority);
-                if(t->priority > thread_current()->priority)
-                    thread_current()->priority = t->priority;
-
-            }
-        }
-        int current_priority = thread_current()->priority;
-        //printf("new_priority: %d\n", thread_current()->priority);
-        //printf("top_priority: %d\n", t->priority);
-        //printf("old_top_priority: %d\n", f->priority);
-
-            //printf("I Yielded\n");
-        if(!list_empty(&ready_list)) {
-            struct thread *t = list_entry(list_back(&ready_list), struct thread, elem);
-            if(current_priority < t->priority)
-                thread_yield();
-
-        }
     }
-    
-    //intr_set_level(old_level);
+
 }
 
 /* Returns the current thread's priority. */
@@ -499,35 +459,7 @@ thread_get_recent_cpu(void)
     return 0;
 }
 
-void release_priority() {
-      thread_current()->priority = thread_current()->real_priority;
-      
-      
-    //printf("lock holder p: %d\n", lock->holder->real_priority);
-//    if(lock->holder->real_priority != 0)
-//        lock->holder->priority = lock->holder->real_priority;
-//    if(list_empty(&t->d_list ))
-//        return;
-//    struct thread *y = list_entry(list_front(&t->d_list),struct thread, allelem);
-//    printf("top priority: %d\n", y->priority);
-//    if(y->priority > t->priority){
-//        t->priority = y->priority;
-//    }
-    
-}
-void release_lock(struct lock *lock) {
-    struct list_elem *e;
-    
-    
-    for (e = list_begin(&all_list); e != list_end(&all_list);
-        e = list_next(e)) {
-        struct thread *t = list_entry(e, struct thread,donationelem);
-        if(t->lock == lock) {
-            list_remove(e);
-        }
-    }
-    
-}
+
 /* Idle thread.  Executes when no other thread is ready to run.
 
    The idle thread is initially put on the ready list by

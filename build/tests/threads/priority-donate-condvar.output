@@ -1,11 +1,11 @@
-qemu-system-x86_64 -hda /tmp/JrQ1U1KOvm.dsk -m 4 -net none -nographic -monitor null
+qemu-system-x86_64 -hda /tmp/R_v3bzx543.dsk -m 4 -net none -nographic -monitor null
 PiLo hda1
 Loading..........
 Kernel command line: -q run priority-donate-condvar
 Pintos booting with 3,968 kB RAM...
 367 pages available in kernel pool.
 367 pages available in user pool.
-Calibrating timer...  235,520,000 loops/s.
+Calibrating timer...  111,820,800 loops/s.
 Boot complete.
 Executing 'priority-donate-condvar':
 (priority-donate-condvar) begin
@@ -20,8 +20,8 @@ Executing 'priority-donate-condvar':
 (priority-donate-condvar) Thread main finished
 (priority-donate-condvar) end
 Execution of 'priority-donate-condvar' complete.
-Timer: 48 ticks
-Thread: 0 idle ticks, 48 kernel ticks, 0 user ticks
+Timer: 50 ticks
+Thread: 0 idle ticks, 50 kernel ticks, 0 user ticks
 Console: 862 characters output
 Keyboard: 0 keys pressed
 Powering off...
